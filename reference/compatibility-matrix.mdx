@@ -97,11 +97,11 @@ Program IDs are not yet published in the documentation. Until they are, deploy w
 
 | Script | Identifier | Kind |
 |---|---|---|
-| `wraith-stealth-lock` | `0xc133817d433f72ea16a2404adaf961524e9572c8378829a21968710d6182e20d` | Code hash (`data2`) |
+| `wraith-stealth-lock` | Not published in these docs | Code hash (`data2`) |
 | `wraith-names-type` | `0xc133817d433f72ea16a2404adaf961524e9572c8378829a21968710d6182e20d` | Code hash (`data2`) |
-| Deployment cell dep | `0x9acd640d35eadd893b358dddd415f4061fe81cb249e8ace51a866fee314141b8` | Transaction hash (index 0, `code`) |
+| `wraith-names-type` cell dep | `0x9acd640d35eadd893b358dddd415f4061fe81cb249e8ace51a866fee314141b8` | Transaction hash (index 0, `code`) |
 
-CKB has no separate announcer: the stealth Cell's lock args carry the announcement. The values above are the testnet example published in [CKB Contracts → Deployed Code Hash](/contracts/ckb#deployed-code-hash); confirm them against `getDeployment("ckb")` before mainnet use.
+CKB has no separate announcer: the stealth Cell's lock args carry the announcement. The `wraith-names-type` code hash and its deployment cell dep above are the testnet values published in [CKB Contracts → Deployed Code Hash](/contracts/ckb#deployed-code-hash); the `wraith-stealth-lock` code hash is not yet recorded in the deployment reference, so this table does not publish one. Confirm every value against `getDeployment("ckb")` before mainnet use.
 
 <a id="ckb-migration-notes"></a>
 
@@ -124,13 +124,13 @@ CKB has no separate announcer: the stealth Cell's lock args carry the announceme
 
 ## Keeping this matrix in sync
 
-The deployment identifiers on this page are checked in CI against the pages that own them:
+The deployment identifiers on this page are checked in CI **row by row**, against the entry that owns each one:
 
 ```bash
 npm run check:compatibility-matrix
 ```
 
-The check extracts every `0x…` address/code hash and `C…` strkey from this page and fails if one of them is not also present in `contracts/evm.mdx`, `contracts/stellar.mdx`, `contracts/solana.mdx`, `contracts/ckb.mdx`, `reference/stellar-networks.mdx`, or the `sdk/chains/*.mdx` primitives pages. After a redeploy:
+For each chain section the check resolves every row's contract to its owning entry — `contracts/evm.mdx` for the Horizen addresses, `scripts/contract-registry.json` for the Stellar addresses and versions, and `contracts/ckb.mdx` for the CKB code hashes and cell deps — and fails when the value is not that contract's value, when it belongs to a different chain or contract, or when its version does not match the registry. A Solana row may carry no identifier until program IDs are published. After a redeploy:
 
 1. Update the owning page (or re-run `npm run generate:stellar-reference` for Stellar).
 2. Update the matching row here.

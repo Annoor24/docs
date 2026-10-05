@@ -3,11 +3,15 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "check:placeholders": "tsx scripts/check-placeholders.ts",
     "check:snippets": "tsx scripts/check-snippets.ts",
     "check:snippets-extended": "tsx scripts/check-snippets-extended.ts",
     "check:nav-coverage": "node scripts/check-nav-coverage.mjs",
-"check:compatibility-matrix": "node scripts/check-compatibility-matrix.mjs",
     "check:contract-registry": "node scripts/check-contract-registry.mjs",
+    "check:compatibility-matrix": "node scripts/check-compatibility-matrix.mjs",
+    "check:redirects-and-anchors": "node scripts/check-redirects-and-anchors.mjs",
+    "test:redirects-and-anchors": "node --test scripts/check-redirects-and-anchors.test.mjs",
+    "test:preview-redirect": "node scripts/check-preview-redirect.mjs",
     "check:stellar-testnet": "tsx scripts/check-stellar-testnet-snippets.ts",
     "generate:stellar-reference": "tsx scripts/generate-stellar-reference.ts",
     "check:stellar-reference": "tsx scripts/generate-stellar-reference.ts --check --allow-missing",
@@ -16,7 +20,7 @@
     "test:playground": "playwright test --config scripts/playground/tests/playwright.config.ts",
     "mint:validate": "mint validate",
     "mint:broken-links": "mint broken-links",
-"test": "npm run check:snippets && npm run check:nav-coverage && npm run check:contract-registry && npm run check:compatibility-matrix"
+    "test": "npm run check:snippets && npm run check:nav-coverage && npm run check:contract-registry && npm run check:compatibility-matrix && npm run test:redirects-and-anchors"
   },
   "dependencies": {
     "@solana/web3.js": "^1.95.0",
